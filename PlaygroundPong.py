@@ -1,5 +1,7 @@
 from NeuralNetwork import Brain
-import sys, pygame, time, numpy, random
+import pygame, time, numpy, random
+
+inputs, outputs = 2, 1
 
 class Player:
     def __init__(self, x:int, y:int, w:int, h:int, speed:float, brain:Brain):
@@ -24,6 +26,7 @@ class Avaliation:
         self.players = [Player(150, 200, 50, 10, 50*20, brain) for brain in brains]
         self.lenTest = lenTest
         self.points = [0 for i in range(len(brains))]
+        self.attTest = 0
     
     def start (self):
         pygame.init()
@@ -72,9 +75,10 @@ class Avaliation:
             deltatime = time.time() - init
 
             self.points = [player.points for player in self.players]
+            self.attTest = self.lenTest - contBols
         
         pygame.quit()
         return self.points
 
 if __name__ == "__main__":
-    print(Avaliation([Brain(2, [20], 1, False) for i in range(5)], 10).start())
+    print(Avaliation([Brain(inputs, [20], outputs, False) for i in range(5)], 10).start())
