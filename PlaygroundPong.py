@@ -1,6 +1,5 @@
 from NeuralNetwork import Brain
 import sys, pygame, time, numpy, random
-import threading
 
 class Player:
     def __init__(self, x:int, y:int, w:int, h:int, speed:float, brain:Brain):
@@ -13,19 +12,18 @@ class Player:
         self.points = 0
     
     def think (self, bolX:int, deltatime:float):
-        entry = self.brain.think(numpy.array([self.x, bolX]))[0]
+        entry = self.brain.think(numpy.array([self.x / 320, bolX / 320]))[0]
 
-        if entry > 0.0 and self.x < 300:
+        if entry > 0.5 and (self.x + self.speed * deltatime) < 320:
             self.x += self.speed * deltatime
-        elif entry < -0.0 and self.x > 0:
+        elif entry < 0.5 and (self.x - self.speed * deltatime) > 0:
             self.x -= self.speed * deltatime
-
-
 
 class Avaliation:
     def __init__(self, brains:list, lenTest: int):
-        self.players = [Player(100, 200, 50, 10, 50*20, brain) for brain in brains]
+        self.players = [Player(150, 200, 50, 10, 50*20, brain) for brain in brains]
         self.lenTest = lenTest
+        self.points = [0 for i in range(len(brains))]
     
     def start (self):
         pygame.init()
@@ -71,12 +69,12 @@ class Avaliation:
                 pygame.draw.line(screen, red, (player.x - player.w / 2, player.y), (player.x + player.w / 2, player.y), player.h)
 
             pygame.display.flip()
-
             deltatime = time.time() - init
+
+            self.points = [player.points for player in self.players]
         
-        points = [player.points for player in self.players]
         pygame.quit()
-        return points
+        return self.points
 
 if __name__ == "__main__":
     print(Avaliation([Brain(2, [20], 1, False) for i in range(5)], 10).start())
