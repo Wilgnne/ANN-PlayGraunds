@@ -14,7 +14,8 @@ class Player:
         self.points = 0
     
     def think (self, bolX:int, deltatime:float):
-        entry = self.brain.think(numpy.array([self.x / 320, bolX / 320]))[0]
+        entry = self.brain.think(numpy.array([self.x / 320, bolX / 320]))
+        entry = entry[0]
 
         if entry > 0.5 and (self.x + self.speed * deltatime) < 320:
             self.x += self.speed * deltatime

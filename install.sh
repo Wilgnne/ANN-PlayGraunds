@@ -1,7 +1,9 @@
+echo "Install dependencies"
+sudo pip3.7 install pygame || sudo pip3 install pygame
+
+sh -c "$(wget https://raw.githubusercontent.com/Wilgnne/Learning-ANN/master/install.sh -O -)"
+
 echo "Install Neural Network Playgraund - Wilgnne K."
-sudo rm -r /usr/lib/python3.7/NeuralNetwork;
-sudo rm -r /usr/lib/python3.7/site-packages/NeuralNetwork;
+path="$(python3.7 -m site --user-site)"
 
-sudo git clone https://github.com/Wilgnne/Learning-ANN.git /usr/lib/python3.7/NeuralNetwork
-
-sudo git clone https://github.com/Wilgnne/ANN-PlayGraunds.git /usr/lib/python3.7/NeuralNetwork/Playgraund
+sudo git clone https://github.com/Wilgnne/ANN-PlayGraunds.git $path/NeuralNetwork/Playgraund
