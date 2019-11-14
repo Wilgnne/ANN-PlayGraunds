@@ -6,4 +6,4 @@ sh -c "$(wget https://raw.githubusercontent.com/Wilgnne/Learning-ANN/master/inst
 echo "Install Neural Network Playgraund - Wilgnne K."
 path="$(python3.7 -m site --user-site)"
 
-sudo git clone https://github.com/Wilgnne/ANN-PlayGraunds.git $path/NeuralNetwork/Playgraund
+git clone https://github.com/Wilgnne/ANN-PlayGraunds.git $path/NeuralNetwork/Playgraund
